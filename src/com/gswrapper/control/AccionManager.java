@@ -5,6 +5,7 @@ import java.lang.reflect.*;
 import org.apache.log4j.*;
 
 import com.gswrapper.excepciones.IllegalActionExcepcion;
+import com.gswrapper.excepciones.NoConnectionExcepcion;
 import com.gswrapper.modelo.acciones.*;
 import com.gswrapper.modelo.dao.*;
 import com.gswrapper.modelo.vista.*;
@@ -27,6 +28,7 @@ public class AccionManager {
 	
 	private static final String METODO_ACCION = "ejecutar";
 	private static final String MENSAJE_ACCION = "Ejecutando la accion %s";
+	private static final String ERROR_ACCION = "Error al ejecutar la accion %s";
 	
 	private static AccionManager instance;
 	
@@ -75,10 +77,23 @@ public class AccionManager {
 		
 		ResultadoAccion resultadoAccion = new ResultadoAccion();
 		
-		resultadoAccion.setResultado(ClassUtil.invoke(accion, metodoEjecutar, parametros));
-		
-		resultadoAccion.setPantallasAbiertas(accion.getPantallasAbiertas());
+		try {
 			
+			resultadoAccion.setResultado(metodoEjecutar.invoke(accion, parametros));
+		
+		} catch (Exception e) {
+			
+			if(e.getCause() != null && e.getCause().getClass().equals(NoConnectionExcepcion.class)) throw (NoConnectionExcepcion)e.getCause();
+			
+			LogUtil.error(LOGGER, String.format(ERROR_ACCION, nombreAccion), e);
+			
+			resultadoAccion.setResultado(null);
+			
+		} finally {
+			
+			resultadoAccion.setPantallasAbiertas(accion.getPantallasAbiertas());
+		}
+		
 		return resultadoAccion;
 	}
 	
@@ -110,7 +125,6 @@ public class AccionManager {
 		
 		return accionDao.exists(nombreAccion);
 	}
-	
 	
 	private boolean parametrosValidos(MetaAccion accion, Object parametros) {
 		

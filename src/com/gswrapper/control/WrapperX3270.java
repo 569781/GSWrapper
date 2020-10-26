@@ -20,10 +20,10 @@ public class WrapperX3270 implements Wrapper3270 {
 	
 	private static final Logger LOGGER = Logger.getLogger(WrapperX3270.class);
 	
-	private static final String MENSAJE_NUEVA_CONEXION = "Se ha establecido una nueva conexiÃ³n a %s : %d";
+	private static final String MENSAJE_NUEVA_CONEXION = "Se ha establecido una nueva conexión a %s : %d";
 	private static final String MENSAJE_NUEVO_USUARIO = "El usuario %s se ha conectado";
 	private static final String MENSAJE_COMANDO = "Se esta ejecutando %s";
-	private static final String MENSAJE_DESCONEXION = "Se ha perdido la conexiÃ³n con el servidor";
+	private static final String MENSAJE_DESCONEXION = "Se ha perdido la conexión con el servidor";
 	
 	private DisplaylessTerminal terminal;
 	private Usuario usuarioTerminal;

@@ -52,7 +52,7 @@ public class DisplaylessTerminalXS implements DisplaylessTerminal {
 		process = Runtime.getRuntime().exec(path);
 		lectura = new BufferedReader(new InputStreamReader(process.getInputStream(), codificacion));
 		escritura = new PrintWriter(new OutputStreamWriter(process.getOutputStream()));
-		conexion = new Conexion();
+		if(conexion == null) conexion = new Conexion();
 	}
 	
 

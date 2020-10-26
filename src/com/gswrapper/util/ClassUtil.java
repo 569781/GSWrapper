@@ -103,12 +103,12 @@ public class ClassUtil {
 		try {
 			
 			method = classMethod.getMethod(methodName, classParameters);
-			
-		} catch (Exception e) {
-			
+				
+		} catch (NoSuchMethodException | SecurityException e) {
+				
 			LOGGER.error(String.format(ERROR_RECUPERAR_METODO, methodName), e);
 		}
-		
+			
 		return method;
 	}
 	
@@ -117,14 +117,13 @@ public class ClassUtil {
 		Object result = null;
 		
 		try {
-			
-			result = method.invoke(instance, arguments);
-			
-		} catch (Exception e) {
-			
+				result = method.invoke(instance, arguments);
+				
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				
 			LOGGER.error(String.format(ERROR_EJECUTAR_METODO, method.getName()), e);
 		}
-		
+			
 		return result;
 	}
 	

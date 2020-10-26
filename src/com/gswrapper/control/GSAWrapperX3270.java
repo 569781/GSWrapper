@@ -36,8 +36,8 @@ public class GSAWrapperX3270 extends WrapperX3270 implements GSAWrapper3270 {
 	private static final String LOG_EJECUTAR_ACCION = "Ejecutando accion %s";
 	
 	private static final String ERROR_PANTALLA = "Pantalla %s no encontrada";
-	private static final String ERROR_ACCION = "La acci√≥n %s no existe o par√°metros incorrectos";
-	private static final String ERROR_CONEXION = "Intentando recuperar la conexi√≥n, intento %d";
+	private static final String ERROR_ACCION = "La acciÛn %s no existe o par·metros incorrectos";
+	private static final String ERROR_CONEXION = "Intentando recuperar la conexiÛn, intento %d";
 
 	private Stack<String> accionesEnEjecucion = new Stack<>();
 	
@@ -147,7 +147,7 @@ public class GSAWrapperX3270 extends WrapperX3270 implements GSAWrapper3270 {
 			validarPantalla(pantallaFinal);
 			
 		} catch (NoConnectionExcepcion e) {
-			
+				
 			LogUtil.warn(LOGGER, e.getMessage());
 			
 			reiniciarAccion(e, pantallaAccion);
@@ -207,7 +207,6 @@ public class GSAWrapperX3270 extends WrapperX3270 implements GSAWrapper3270 {
 		abrirPantalla(pantallaAcceso, true);
 	}
 	
-	
 	private synchronized void recuperarAccion(NoConnectionExcepcion excepcion) {
 		
 		if(accionesEnEjecucion.empty() || 
@@ -227,12 +226,12 @@ public class GSAWrapperX3270 extends WrapperX3270 implements GSAWrapper3270 {
 				
 				Thread.sleep(MILISEGUNDOS_ESPERA);
 				
-				if(intentosRestantes > MAX_INTENTOS_REINICIAR) {
+				if(intentosRestantes <= 0) {
 						
 					throw excepcion;
 				}
 				
-				reconectar(intentosRestantes ++ , excepcion);
+				reconectar(--intentosRestantes  , excepcion);
 				
 			} catch (InterruptedException e) {
 				
@@ -291,5 +290,4 @@ public class GSAWrapperX3270 extends WrapperX3270 implements GSAWrapper3270 {
 			ejecutarComando(comandoPantalla.getComando(), comandoPantalla.getArgumentos());
 		}
 	}
-
 }
