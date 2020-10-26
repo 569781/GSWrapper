@@ -100,5 +100,13 @@ public class Pantalla {
         
         return (nombre == tmp.nombre) && (identificador.getClave() == tmp.getIdentificador().getClave());
     }
-
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((identificador == null) ? 0 : identificador.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		return result;
+	}
 }

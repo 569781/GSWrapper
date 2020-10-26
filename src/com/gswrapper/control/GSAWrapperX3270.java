@@ -179,7 +179,7 @@ public class GSAWrapperX3270 extends WrapperX3270 implements GSAWrapper3270 {
 		}
 	}
 	
-	private ResultadoAccion getResultadoAccion(String nombreAccion, Object parametros, Pantalla pantallaAccion) {
+	private ResultadoAccion getResultadoAccion(String nombreAccion, Object parametros, Pantalla pantallaAccion) throws IllegalActionExcepcion {
 		
 		AccionManager accionManager = AccionManager.getInstance();
 		
@@ -235,6 +235,8 @@ public class GSAWrapperX3270 extends WrapperX3270 implements GSAWrapper3270 {
 				reconectar(intentosRestantes ++ , excepcion);
 				
 			} catch (InterruptedException e) {
+				
+				Thread.currentThread().interrupt();
 			
 				throw excepcion;
 			}

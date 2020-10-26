@@ -12,7 +12,7 @@ import com.gswrapper.modelo.vista.*;
  * @date 2019-07-19
  *
  */
-public interface GSAWrapper3270 extends Wrapper3270 {
+public interface GSAWrapper3270 {
 
 	public void cargarPantallasXML(String pathXML) throws ClassNotFoundException;
 	public void abrirPantalla(String nombrePantalla) throws IllegalScreenException;

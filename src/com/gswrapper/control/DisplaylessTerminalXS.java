@@ -154,6 +154,8 @@ public class DisplaylessTerminalXS implements DisplaylessTerminal {
 				
 			} catch (InterruptedException e) {
 				
+				Thread.currentThread().interrupt();
+				
 				throw new TerminalTimeOutException(ERROR_TIMEOUT);
 			}
 

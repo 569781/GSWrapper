@@ -4,6 +4,7 @@ import java.lang.reflect.*;
 
 import org.apache.log4j.*;
 
+import com.gswrapper.excepciones.IllegalActionExcepcion;
 import com.gswrapper.modelo.acciones.*;
 import com.gswrapper.modelo.dao.*;
 import com.gswrapper.modelo.vista.*;
@@ -58,7 +59,7 @@ public class AccionManager {
 		return pantalla;
 	}
 	
-	public ResultadoAccion ejecutarAccion(String nombreAccion, Object parametros, Object ... parametrosConstructor) {		
+	public ResultadoAccion ejecutarAccion(String nombreAccion, Object parametros, Object ... parametrosConstructor) throws IllegalActionExcepcion {		
 		
 		LogUtil.info(LOGGER, String.format(MENSAJE_ACCION, nombreAccion));
 			
@@ -86,7 +87,7 @@ public class AccionManager {
 		return ClassUtil.getConstructor(claseAccion, GSAWrapper3270.class, Pantalla.class);
 	}
 	
-	private AccionBase<?, ?> newInstance(Constructor<? extends AccionBase<?, ?>> constructor, Object ... parametros) {
+	private AccionBase<?, ?> newInstance(Constructor<? extends AccionBase<?, ?>> constructor, Object ... parametros) throws IllegalActionExcepcion {
 		
 		AccionBase<?, ?> instancia = null;
 		
@@ -98,6 +99,8 @@ public class AccionManager {
 				| InvocationTargetException e) {
 		
 			LOGGER.error(String.format(ClassUtil.ERROR_INSTANCIA, constructor.getName()), e);
+			
+			throw new IllegalActionExcepcion(String.format(ClassUtil.ERROR_INSTANCIA, constructor.getName()));
 		}
 		
 		return instancia;
