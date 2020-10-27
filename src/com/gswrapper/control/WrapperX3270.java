@@ -269,6 +269,8 @@ public class WrapperX3270 implements Wrapper3270 {
 	@Override
 	public boolean validarPantalla(String key) {
 	
+		esperarTexto(key, 1);
+		
 		return leerPantalla().contains(key);
 	}
 	

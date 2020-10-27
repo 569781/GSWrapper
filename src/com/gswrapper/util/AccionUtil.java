@@ -19,7 +19,7 @@ public class AccionUtil {
 	
 	private static final Logger LOGGER = Logger.getLogger(AccionUtil.class);
 	
-	private static final int MAX_INTENTOS = 5;
+	private static final int MAX_INTENTOS = 2;
 	
 	private static AccionUtil instance;
 	
@@ -51,13 +51,15 @@ public class AccionUtil {
 		
 			String idPantalla = pantallaEsperada.getIdentificador().getClave();
 			
+			wrapper.esperarTexto(idPantalla, 1);
+			
 			String idLeido = leerIdPantalla(wrapper, pantallaEsperada);
 			
 			esPantallaEsperada = idPantalla.equalsIgnoreCase(idLeido);
 			
+			intentos = intentos - 1;
+			
 			if(!esPantallaEsperada && intentos > 0) {
-				
-				intentos = intentos - 1;
 				
 				esPantallaEsperada = esPantallaEsperada(wrapper, pantallaEsperada, intentos);	
 			}
