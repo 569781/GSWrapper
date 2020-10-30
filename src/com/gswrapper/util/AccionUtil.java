@@ -93,7 +93,7 @@ public class AccionUtil {
 		
 		String pantallaAcceso = null;
 		
-		if(pantalla.getPantallasAcceso().size() == 1) {
+		if(pantalla.getPantallasAcceso() != null && pantalla.getPantallasAcceso().size() == 1) {
 			
 			pantallaAcceso = pantalla.getPantallasAcceso().get(0);
 		}
